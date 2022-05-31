@@ -12,13 +12,13 @@ import {
 import { useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
 import { collection, onSnapshot, where } from 'firebase/firestore'
-const PaymentScreen: NextPage = () => {
+const PaymentScreen: NextPage<{}> = () => {
   const companySubscriptionStatus = useSelector(selectCompanySubscriptionStatus)
   const router = useRouter()
   const [activeStatus, setActiveStatus] = useState(null)
   const [refresh, setRefresh] = useState(false)
 
-  GetUserActiveStatus({ active: activeStatus, activeState: setActiveStatus })
+  GetUserActiveStatus({ activeState: setActiveStatus })
 
   useEffect(() => {
     // if (activeStatus != 'active') {

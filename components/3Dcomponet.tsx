@@ -18,6 +18,20 @@ export default function Threecomponet({
   directionalLightIntensity,
   pointLightIntensity,
   pointLightPositionArray,
+}: {
+  ThreeDShape: any
+  ThreeDShape2?: any
+  ThreeDShape3?: any
+  ThreeDShape4?: any
+  ThreeDShape5?: any
+  ThreeDShape6?: any
+  customBoolean?: any
+  enableZoom?: any
+  bgColor?: any
+  ambientLightIntensity?: any
+  directionalLightIntensity?: any
+  pointLightIntensity?: any
+  pointLightPositionArray?: any
 }) {
   var custom = customBoolean
   if (custom == true) {

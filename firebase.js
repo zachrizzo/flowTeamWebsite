@@ -80,7 +80,7 @@ export function SignInToAccount({ email, password }) {
     })
 }
 
-export function GetUserActiveStatus({ active, activeState }) {
+export function GetUserActiveStatus({ activeState }) {
   try {
     onSnapshot(
       collection(db, 'customers', auth.currentUser.uid, 'subscriptions'),

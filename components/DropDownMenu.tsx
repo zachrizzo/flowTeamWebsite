@@ -3,13 +3,17 @@ import { Fragment } from 'react'
 import { MenuItem } from './MenuItem'
 
 const DropDownMenu: React.FC<{
-  focus: boolean
+  // focus: boolean
   item: Array<any>
-  props: any
-  setOpen: any
-  open: boolean
+  // props: any
+  // setOpen: any
+  // open: boolean
   ref: any
-}> = ({ item, focus, props, setOpen, open, ref }) => {
+}> = ({
+  item,
+  //  focus, props, setOpen, open,
+  ref,
+}) => {
   //const [open, setOpen] = useState(false)
 
   return (

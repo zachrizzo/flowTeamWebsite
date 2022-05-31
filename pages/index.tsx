@@ -9,7 +9,7 @@ import IphoneXsMax from '../components/IphoneXsMax'
 import Threecomponet from '../components/3Dcomponet'
 import Iphone from '../components/Scene'
 import Iphone13ProMax from '../components/Iphone13ProMax'
-import Box from '../components/box'
+// import Box from '../components/box'
 import RocketAsteroid from '../components/RocketAsteroid'
 import TextInput from '../components/TextInput'
 import IpadPro from '../components/Ipad'
@@ -40,13 +40,13 @@ const Home: NextPage = () => {
         <div className=" flex h-[500px] w-full ">
           <Threecomponet
             customBoolean={false}
-            ThreeDShape={<SphereAnimateThreejs />}
+            ThreeDShape={<SphereAnimateThreejs scale={2.5} />}
           />
         </div>
         <div className=" flex h-[700px]  w-full flex-col ">
           <div className=" flex h-full grid-cols-2 flex-row ">
             <div className=" flex  w-[50%] ">
-              <Threecomponet
+              {/* <Threecomponet
                 customBoolean={true}
                 enableZoom={false}
                 ambientLightIntensity={1}
@@ -69,7 +69,7 @@ const Home: NextPage = () => {
                 // }
                 // ThreeDShape3={<IpadPro PositionArray={[-1.5, -3, 0]} />}
                 // bgColor={'#000000'}
-              />
+              /> */}
 
               {/* <Threecomponet
             customBoolean={true}

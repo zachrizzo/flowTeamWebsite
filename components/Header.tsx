@@ -13,7 +13,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import Threecomponet from './3Dcomponet'
 import SphereAnimateThreejs from './SphereAnimateThreejs'
-import Box from './box'
+
 import { useSession } from 'next-auth/react'
 import MainFuctionButton from './MainLinkButton'
 import DropDownMenu from './DropDownMenu'
@@ -33,17 +33,17 @@ const Header = () => {
       router.push('/')
     })
   }
-  useEffect(() => {
-    const handleClickOutside = (event: any) => {
-      if (ref.current && !ref.current.contains(event.target)) {
-        setOpenMenu(!openMenu)
-      }
-    }
-    document.addEventListener('click', handleClickOutside, true)
-    return () => {
-      document.removeEventListener('click', handleClickOutside, false)
-    }
-  }, [openMenu])
+  // useEffect(() => {
+  //   const handleClickOutside = (event: any) => {
+  //     if (ref.current && !ref.current.current(event.target)) {
+  //       setOpenMenu(!openMenu)
+  //     }
+  //   }
+  //   document.addEventListener('click', handleClickOutside, true)
+  //   return () => {
+  //     document.removeEventListener('click', handleClickOutside, false)
+  //   }
+  // }, [openMenu])
   const ShowAuthHeader: any = () => {
     if (openMenu) {
       if (auth.currentUser) {
@@ -51,8 +51,8 @@ const Header = () => {
           <div className=" absolute flex justify-start duration-[500s] ease-in">
             <DropDownMenu
               ref={ref}
-              open={openMenu}
-              setOpen={setOpenMenu}
+              // open={openMenu}
+              // setOpen={setOpenMenu}
               item={[
                 <MenuItem
                   icon={
@@ -107,8 +107,8 @@ const Header = () => {
           <div className=" absolute flex justify-start duration-[500s] ease-in">
             <DropDownMenu
               ref={ref}
-              open={openMenu}
-              setOpen={setOpenMenu}
+              // open={openMenu}
+              // setOpen={setOpenMenu}
               item={[
                 <MenuItem
                   icon={

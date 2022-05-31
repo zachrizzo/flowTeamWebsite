@@ -3,6 +3,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Banner from '../components/Banner'
 import Header from '../components/Header'
+
 import SphereAnimateThreejs from '../components/SphereAnimateThreejs'
 import { useRouter } from 'next/router'
 import { GetUserActiveStatus, auth, getCompany, db } from '../firebase'
@@ -12,7 +13,8 @@ import {
   selectCompanySubscriptionStatus,
 } from '../slices/globalSlice'
 import { collection, onSnapshot, where } from 'firebase/firestore'
-const UserProfilePage: React.FC<{}> = () => {
+import { NextPage } from 'next'
+const UserProfilePage: NextPage<{}> = () => {
   const [usersName, setUsersName] = useState('')
   const [company, setCompany] = useState('')
   const [numberOfEnrolledEmpoyees, setNumberOfEnrolledEmployees] = useState(0)
@@ -27,29 +29,30 @@ const UserProfilePage: React.FC<{}> = () => {
 
   // useEffect(() => {
   // const s = async () => {
-  useEffect(() => {
-    try {
-      onSnapshot(
-        collection(db, 'customers', auth.currentUser?.email, 'subscriptions'),
-        where('status', '==', 'active'),
-        (querySnapshot) => {
-          const tasks = []
-          querySnapshot.forEach((snap: any) => {
-            const status = snap.get('status')
-            setActiveStatus(status)
-            if (status == 'active') {
-              dispatch(setCompanySubscriptionStatus(true))
-            }
-          })
+  GetUserActiveStatus({ activeState: setActiveStatus })
+  // useEffect(() => {
+  //   try {
+  //     onSnapshot(
 
-          //dispatch(setUserSubscriptionStatus(doc.get('status')))
-        }
-      )
-    } catch (e) {
-      // alert(e + 'your account is no longer active')
-    }
-  }, [auth.currentUser])
-  // GetUserActiveStatus({ activeState: setActiveStatus })
+  //       collection(db, 'customers', auth.currentUser?.email, 'subscriptions'),
+  //       where('status', '==', 'active'),
+  //       (querySnapshot) => {
+  //         const tasks = []
+  //         querySnapshot.forEach((snap) => {
+  //           const status = snap.get('status')
+  //           setActiveStatus(status)
+  //           if (status == 'active') {
+  //             dispatch(setCompanySubscriptionStatus(true))
+  //           }
+  //         })
+
+  //         //dispatch(setUserSubscriptionStatus(doc.get('status')))
+  //       }
+  //     )
+  //   } catch (e) {
+  //     // alert(e + 'your account is no longer active')
+  //   }
+  // }, [auth.currentUser])
   getCompany({ companyState: setCompanyDB })
 
   // }

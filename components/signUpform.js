@@ -1,3 +1,4 @@
+import React from 'react'
 import { getProviders, signIn as SignIntoProvider } from 'next-auth/react'
 import Header from '../components/Header'
 import Head from 'next/head'
@@ -30,8 +31,7 @@ import {
   setDoc,
   doc,
 } from 'firebase/firestore'
-
-export default function SignUp({ providers }) {
+function SignUpform() {
   const router = useRouter()
   const [email, setEmail] = useState(null)
 
@@ -58,7 +58,6 @@ export default function SignUp({ providers }) {
       unsubscribe
     }
   }, [])
-
   const SignUpNewUser = () => {
     try {
       createUserWithEmailAndPassword(auth, email, password)
@@ -151,116 +150,87 @@ export default function SignUp({ providers }) {
     }
   }
   return (
-    <div className="flex h-full w-full flex-col">
-      <Head>
-        <title>Flow Team Sign Up</title>
-        <link rel="icon" href="/Flow team Android 512px.png" />
-      </Head>
-
-      <Header />
-      <main className=" flex flex-1 flex-col items-center justify-center py-5 ">
-        <h1 className=" py-5 text-2xl font-semibold text-[#3939397c]">
-          Sign Up Your Company
-        </h1>
-        <div className="  m-4 flex w-full">
-          <TextInput
-            onChange={(text) => setCompany(text.target.value.toLowerCase())}
-            // value={company}
-            widthPercentage={'w-[60%]'}
-            placeHolder="Company Name"
-          />
-        </div>
-        <div className=" m-4 flex w-full">
-          <TextInput
-            onChange={(text) => setFullName(text.target.value)}
-            // value={fullName}
-            widthPercentage={'w-[60%]'}
-            placeHolder="Full Name"
-          />
-        </div>
-        <div className=" m-4 flex w-full">
-          <TextInput
-            onChange={(text) => setCompanyAddress(text.target.value)}
-            // value={companyAddress}
-            widthPercentage={'w-[60%]'}
-            placeHolder="Compamy Address"
-          />
-        </div>
-        <div className=" m-4 flex w-full">
-          <TextInput
-            onChange={(text) => setPhoneNumber(text.target.value)}
-            // value={phoneNumber}
-            widthPercentage={'w-[60%]'}
-            placeHolder="Phone Number"
-          />
-        </div>
-        <div className=" m-4 flex w-full">
-          <TextInput
-            text="text"
-            onChange={(text) => setEmail(text.target.value.toLowerCase())}
-            // value={email}
-            widthPercentage={'w-[60%]'}
-            placeHolder="Email"
-          />
-        </div>
-        <div className=" m-4 flex w-full">
-          <TextInput
-            onChange={(text) => setNumberOfEmployees(text.target.value)}
-            // value={numberOfEmployees}
-            widthPercentage={'w-[40%]'}
-            placeHolder="Number of Employees"
-          />
-        </div>
-        <div className=" m-4 flex w-full">
-          <TextInput
-            onChange={(text) => {
-              setPassword(text.target.value)
-            }}
-            // value={password}
-            widthPercentage={'w-[60%]'}
-            placeHolder="Password"
-          />
-        </div>
-        <div className=" m-4 flex w-full">
-          <TextInput
-            onChange={(text) => setPassword2(text)}
-            // value={password2}
-            widthPercentage={'w-[60%]'}
-            placeHolder="Type Password Again"
-          />
-        </div>
-
-        <MainFuctionButton
-          buttonText="Create Account"
-          onClick={() => {
-            SignUpNewUser()
-            console.log(companytext)
-          }}
+    <main className=" flex flex-1 flex-col items-center justify-center py-5 ">
+      <h1 className=" py-5 text-2xl font-semibold text-[#3939397c]">
+        Sign Up Your Company
+      </h1>
+      <div className="  m-4 flex w-full">
+        <TextInput
+          onChange={(text) => setCompany(text.target.value.toLowerCase())}
+          // value={company}
+          widthPercentage={'w-[60%]'}
+          placeHolder="Company Name"
         />
-      </main>
-      {/* <>
-        <div className=" flex items-center justify-center">
-          {Object.values(providers).map((provider) => (
-            <div className=" flex justify-center p-4" key={provider.name}>
-              <button
-                className=" text-[#fffff] rounded-[30px] bg-[#116def] p-4"
-                onClick={() =>
-                  SignIntoProvider(provider.id, { callbackUrl: '/' })
-                }
-              >
-                Sign in with {provider.name}
-              </button>
-            </div>
-          ))}
-        </div>
-      </> */}
-    </div>
+      </div>
+      <div className=" m-4 flex w-full">
+        <TextInput
+          onChange={(text) => setFullName(text.target.value)}
+          // value={fullName}
+          widthPercentage={'w-[60%]'}
+          placeHolder="Full Name"
+        />
+      </div>
+      <div className=" m-4 flex w-full">
+        <TextInput
+          onChange={(text) => setCompanyAddress(text.target.value)}
+          // value={companyAddress}
+          widthPercentage={'w-[60%]'}
+          placeHolder="Compamy Address"
+        />
+      </div>
+      <div className=" m-4 flex w-full">
+        <TextInput
+          onChange={(text) => setPhoneNumber(text.target.value)}
+          // value={phoneNumber}
+          widthPercentage={'w-[60%]'}
+          placeHolder="Phone Number"
+        />
+      </div>
+      <div className=" m-4 flex w-full">
+        <TextInput
+          text="text"
+          onChange={(text) => setEmail(text.target.value.toLowerCase())}
+          // value={email}
+          widthPercentage={'w-[60%]'}
+          placeHolder="Email"
+        />
+      </div>
+      <div className=" m-4 flex w-full">
+        <TextInput
+          onChange={(text) => setNumberOfEmployees(text.target.value)}
+          // value={numberOfEmployees}
+          widthPercentage={'w-[40%]'}
+          placeHolder="Number of Employees"
+        />
+      </div>
+      <div className=" m-4 flex w-full">
+        <TextInput
+          onChange={(text) => {
+            setPassword(text.target.value)
+          }}
+          // value={password}
+          widthPercentage={'w-[60%]'}
+          placeHolder="Password"
+        />
+      </div>
+      <div className=" m-4 flex w-full">
+        <TextInput
+          onChange={(text) => setPassword2(text)}
+          // value={password2}
+          widthPercentage={'w-[60%]'}
+          placeHolder="Type Password Again"
+        />
+      </div>
+
+      <MainFuctionButton
+        buttonText="Create Account"
+        onClick={() => {
+          SignUpNewUser()
+          console.log(companytext)
+        }}
+      />
+    </main>
   )
 }
 
-// export async function getServerSideProps(context) {
-//   const providers = await getProviders()
-//   return {
-//     props: { providers },
-//   }
-// }
+export default SignUpform

@@ -30,7 +30,7 @@ import {
   setDoc,
   doc,
 } from 'firebase/firestore'
-const SignUp: NextPage = () => {
+const SignUp: React.FC<{}> = () => {
   const router = useRouter()
   const [email, setEmail] = useState('')
 

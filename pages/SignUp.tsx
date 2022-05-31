@@ -77,6 +77,7 @@ const SignUp: NextPage<{}> = () => {
     </div>
   )
 }
+export default SignUp
 
 // export async function getServerSideProps(context) {
 //   const providers = await getProviders()

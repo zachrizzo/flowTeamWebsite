@@ -8,8 +8,9 @@ import {
   selectUserSubscriptionStatus,
   selectCompanySubscriptionStatus,
   selectCompany,
+  setCompanySubscriptionStatus,
 } from '../slices/globalSlice'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
 import { collection, onSnapshot, where } from 'firebase/firestore'
 const PaymentScreen: NextPage<{}> = () => {
@@ -17,23 +18,22 @@ const PaymentScreen: NextPage<{}> = () => {
   const router = useRouter()
   const [activeStatus, setActiveStatus] = useState(null)
   const [refresh, setRefresh] = useState(false)
-
-  GetUserActiveStatus({ activeState: setActiveStatus })
-
+  const dispatch = useDispatch()
   useEffect(() => {
-    // if (activeStatus != 'active') {
-    //   // dispatch(setCompanySubscriptionStatus(true))
-    //   router.push('/UserProfilePage')
-    // } else {
-
-    // }
-
-    if (activeStatus == 'active') {
-      router.push('/UserProfilePage')
-    } else {
-      setRefresh(!refresh)
+    const fetch = async () => {
+      await GetUserActiveStatus({
+        activeState: setActiveStatus,
+        route: router.push('/UserProfilePage'),
+        active: activeStatus,
+      })
     }
+    fetch()
   }, [])
+  useEffect(() => {
+    if (activeStatus == 'active') {
+      router.push('/PaymentScreen')
+    }
+  }, [activeStatus])
 
   const comoanystatus = () => {
     if (companySubscriptionStatus) {

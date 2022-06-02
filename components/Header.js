@@ -25,34 +25,37 @@ const Header = () => {
   const [openMenu, setOpenMenu] = useState(false)
   const [loading, setLoading] = useState(false)
   const router = useRouter()
-  const ref = useRef(null)
+  const ref = useRef(true)
   // const { data: session } = useSession()
   const Logout = () => {
-    const auth: any = getAuth()
+    const auth = getAuth()
     signOut(auth).then(() => {
       router.push('/')
     })
   }
+
   // useEffect(() => {
-  //   const handleClickOutside = (event: any) => {
-  //     if (ref.current && !ref.current.current(event.target)) {
+  //   const handleClickOutside = (event) => {
+  //     if (ref.current && !ref.current.contains(event.target)) {
   //       setOpenMenu(!openMenu)
   //     }
   //   }
-  //   document.addEventListener('click', handleClickOutside, true)
+  //   document.addEventListener('click', handleClickOutside)
   //   return () => {
-  //     document.removeEventListener('click', handleClickOutside, false)
+  //     document.removeEventListener('click', handleClickOutside)
   //   }
-  // }, [openMenu])
-  const ShowAuthHeader: any = () => {
+  // }, [openMenu, ref])
+  const ShowAuthHeader = () => {
     if (openMenu) {
       if (auth.currentUser) {
         return (
-          <div className=" absolute flex justify-start duration-[500s] ease-in">
+          <div
+            ref={ref}
+            className=" absolute flex justify-start duration-[500s] ease-in"
+          >
             <DropDownMenu
-              ref={ref}
-              // open={openMenu}
-              // setOpen={setOpenMenu}
+              openMenu={openMenu}
+              setOpenMenu={setOpenMenu}
               item={[
                 <MenuItem
                   icon={
@@ -84,7 +87,7 @@ const Header = () => {
                       functions,
                       'ext-firestore-stripe-payments-createPortalLink'
                     )
-                    const { data }: any = await createPortalLink({
+                    const { data } = await createPortalLink({
                       returnUrl: window.location.origin,
                     })
                     window.open(data.url)
@@ -104,11 +107,13 @@ const Header = () => {
         )
       } else {
         return (
-          <div className=" absolute flex justify-start duration-[500s] ease-in">
+          <div
+            ref={ref}
+            className=" absolute flex justify-start duration-[500s] ease-in"
+          >
             <DropDownMenu
-              ref={ref}
-              // open={openMenu}
-              // setOpen={setOpenMenu}
+              openMenu={openMenu}
+              setOpenMenu={setOpenMenu}
               item={[
                 <MenuItem
                   icon={
@@ -198,7 +203,7 @@ const Header = () => {
           Create account
         </button> */}
         {/* <h1>{session?.user?.name}</h1> */}
-        <div className="  mx-3">
+        <div className=" mx-3 flex justify-end">
           <MenuIcon
             onClick={() => {
               setOpenMenu(!openMenu)

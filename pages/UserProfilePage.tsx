@@ -18,71 +18,30 @@ const UserProfilePage: NextPage<{}> = () => {
   const [usersName, setUsersName] = useState('')
   const [company, setCompany] = useState('')
   const [numberOfEnrolledEmpoyees, setNumberOfEnrolledEmployees] = useState(0)
-  const [phnoeNumber, setPhoneNumber] = useState('')
+  const [phoneNumber, setPhoneNumber] = useState('')
   const [recentClockins, setRecentClockins] = useState([])
   const [listofEmployees, setListofEmployess] = useState([])
   const router = useRouter()
-  const [activeStatus, setActiveStatus] = useState(null)
+  const [activeStatus, setActiveStatus] = useState('active')
   const [companyDB, setCompanyDB] = useState(null)
   const dispatch = useDispatch()
   const companySubscriptionStatus = useSelector(selectCompanySubscriptionStatus)
 
-  // useEffect(() => {
-  // const s = async () => {
-  GetUserActiveStatus({ activeState: setActiveStatus })
-  // useEffect(() => {
-  //   try {
-  //     onSnapshot(
-
-  //       collection(db, 'customers', auth.currentUser?.email, 'subscriptions'),
-  //       where('status', '==', 'active'),
-  //       (querySnapshot) => {
-  //         const tasks = []
-  //         querySnapshot.forEach((snap) => {
-  //           const status = snap.get('status')
-  //           setActiveStatus(status)
-  //           if (status == 'active') {
-  //             dispatch(setCompanySubscriptionStatus(true))
-  //           }
-  //         })
-
-  //         //dispatch(setUserSubscriptionStatus(doc.get('status')))
-  //       }
-  //     )
-  //   } catch (e) {
-  //     // alert(e + 'your account is no longer active')
-  //   }
-  // }, [auth.currentUser])
-  getCompany({ companyState: setCompanyDB })
-
-  // }
-  // return () => {
-  //
-  // }, [])
-  const isInitialMount = useRef(true)
-
   useEffect(() => {
-    // if (isInitialMount.current) {
-    //   isInitialMount.current = false
-    // } else {
-    if (activeStatus != 'active') {
-      // alert(activeStatus)
-
-      router.push('/PaymentScreen')
-    } else {
-      dispatch(setCompanySubscriptionStatus(true))
-      // alert(activeStatus)
+    const fetch = async () => {
+      await GetUserActiveStatus({
+        activeState: setActiveStatus,
+        route: router.push('/UserProfilePage'),
+        active: activeStatus,
+      })
     }
-    // Your useEffect code here to be run on update
-    // }
+    fetch()
   }, [])
-  // useEffect(() => {
-
-  const active = async () => {}
-  // return () => {
-  active()
-  // }
-  // }, [activeStatus])
+  useEffect(() => {
+    if (activeStatus != 'active') {
+      router.push('/PaymentScreen')
+    }
+  }, [activeStatus])
 
   return (
     <div>

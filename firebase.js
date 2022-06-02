@@ -80,7 +80,8 @@ export function SignInToAccount({ email, password }) {
     })
 }
 
-export function GetUserActiveStatus({ activeState }) {
+export function GetUserActiveStatus({ route, active, activeState }) {
+  //const dispatch = useDispatch()
   try {
     onSnapshot(
       collection(db, 'customers', auth.currentUser.uid, 'subscriptions'),
@@ -90,24 +91,14 @@ export function GetUserActiveStatus({ activeState }) {
         querySnapshot.forEach((snap) => {
           const status = snap.get('status')
           activeState(status)
-          // golbalState(status)
+          // dispatch(golbalState(status))
 
           // key: snap.id;
         })
-        // const doc = querySnapshot.docs[0]s
-        // if (doc) {
-        //   console.log(doc.id, " => ", doc.get("status"));
-
-        //dispatch(setUserSubscriptionStatus(doc.get('status')))
       }
     )
-    // .then(() => {
-    //   if (active) {
-    //     router.push('/UserProfilePage')
-    //   }
-    // })
   } catch (e) {
-    // alert(e + 'your account is no longer active')
+    alert(e)
   }
 }
 export function getCompany({ companyState }) {

@@ -14,7 +14,11 @@ export default function Iphone13proMax2({ Gltf, ...props }) {
   const { nodes, materials } = useGLTF(Gltf)
   return (
     <group ref={group} {...props} dispose={null}>
-      <group rotation={[-Math.PI / 2, 0, 0]} scale={0.54}>
+      <group
+        position={[-0.1, 3, 1]}
+        rotation={[-Math.PI / 2, 0, 0]}
+        scale={0.54}
+      >
         <group rotation={[Math.PI / 2, 0, 0]}>
           <group position={[-0.1, 1.45, -0.26]} scale={0.09}>
             <mesh

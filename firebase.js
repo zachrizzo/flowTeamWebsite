@@ -39,6 +39,11 @@ import { useRouter } from 'next/router'
 // import { setUserSubscriptionStatus } from './slices/globalSlice'
 // Your web app's Firebase configuration
 
+const currentDate = new Date()
+const Year = currentDate.getFullYear().toString()
+const Month = currentDate.getMonth() + (1).toString()
+const day = currentDate.getDate().toString
+
 const firebaseConfig = {
   apiKey: 'AIzaSyDGAsPfxD6ND0JVLKuSY6nVTJbLLpgVLdY',
   authDomain: 'task-manager-2-9a235.firebaseapp.com',
@@ -80,7 +85,7 @@ export function SignInToAccount({ email, password }) {
     })
 }
 
-export function GetUserActiveStatus({ route, active, activeState }) {
+export function GetUserActiveStatus({ activeState }) {
   //const dispatch = useDispatch()
   try {
     onSnapshot(
@@ -98,7 +103,7 @@ export function GetUserActiveStatus({ route, active, activeState }) {
       }
     )
   } catch (e) {
-    alert(e)
+    // alert(e)
   }
 }
 export function getCompany({ companyState }) {
@@ -141,6 +146,72 @@ export async function directtocheckOut({ price }) {
 
     // setButton(true);
   } catch (e) {
-    alert(e)
+    // alert(e)
   }
+}
+export function GetListOfTeamMembers({
+  NumberOfMembersState,
+  TeamMembersState,
+  company,
+}) {
+  onSnapshot(
+    query(collection(db, 'users'), where('company', '==', company)),
+
+    (QuerySnap) => {
+      const array = []
+      QuerySnap.forEach((snap) => {
+        array.push(snap.data())
+      })
+      TeamMembersState(array)
+      NumberOfMembersState(array.length)
+    }
+  )
+}
+export function TotalHoursWokedTHisWeek({ totalState, company }) {
+  try {
+    onSnapshot(
+      query(collection(db, 'companys', company, 'clockIn')),
+      (querySnapshot) => {
+        const totalHours = []
+
+        querySnapshot.forEach((snap) => {
+          const email = snap.get('email')
+
+          onSnapshot(
+            collection(
+              db,
+              'companys',
+              company,
+              'clockIn',
+              email,
+              'year',
+              Year,
+              'month',
+              '4',
+              'day'
+            ),
+            (QuerySnapshots) => {
+              const arrayOfHours = []
+              QuerySnapshots.forEach((doc) => {
+                arrayOfHours.push(doc.get('totalHoursToday'))
+              })
+              var number = 0
+              for (let i = 0; i < arrayOfHours.length; i++) {
+                number = arrayOfHours[i] + number
+              }
+              // console.log(number)
+              totalHours.push(number)
+              var hours = 0
+              for (let x = 0; x < totalHours.length; x++) {
+                console.log(x)
+                hours = totalHours[x] + hours
+              }
+
+              totalState(hours)
+            }
+          )
+        })
+      }
+    )
+  } catch (e) {}
 }

@@ -21,6 +21,7 @@ import { MenuItem } from './MenuItem'
 import { auth, functions } from '../firebase'
 import { getAuth, signOut } from 'firebase/auth'
 import { httpsCallable } from 'firebase/functions'
+import { URL } from 'url'
 const Header = () => {
   const [openMenu, setOpenMenu] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -157,7 +158,7 @@ const Header = () => {
             ThreeDShape={<Box boxTexture={'/Flow team Android 512px.png'} />}
           />
         </div> */}
-        <div className=" h-[60px] w-[20%] cursor-pointer justify-center">
+        <div className=" h-[60px] w-[80%]  cursor-pointer justify-center md:w-[20%] ">
           <Threecomponet
             customBoolean={false}
             ThreeDShape={<SphereAnimateThreejs scale={2.5} />}
@@ -175,33 +176,15 @@ const Header = () => {
       <div className=" "></div>
       <div className=" flex items-start justify-end ">
         <div className=" mx-3 text-center">
-          <MainFuctionButton
+          <button
             onClick={() => {
               router.push('/SignUp')
             }}
-            buttonText={'Get Started'}
-          />
+            className=" invisible mx-4 rounded-full bg-gray-50 px-9 py-4 font-bold text-[#7b3af5] shadow-md transition  duration-150 hover:shadow-lg active:scale-90 lg:visible "
+          >
+            Create account
+          </button>
         </div>
-        {/* <button
-          onClick={signOut}
-          className=" mx-4 rounded-full bg-gray-50 px-9 py-4 font-bold text-[#7b3af5] shadow-md  transition duration-150 hover:shadow-lg active:scale-90 "
-        >
-          sign out
-        </button> */}
-        <MainFuctionButton
-          onClick={() => {
-            router.push('/SignIn')
-          }}
-          buttonText={'Sign In'}
-        />
-        {/* <button
-          onClick={() => {
-            router.push('/SignUp')
-          }}
-          className="  mx-4 rounded-full bg-gray-50 px-9 py-4 font-bold text-[#7B3AF5]  shadow-md transition duration-150 hover:shadow-lg active:scale-90 "
-        >
-          Create account
-        </button> */}
         {/* <h1>{session?.user?.name}</h1> */}
         <div className=" mx-3 flex justify-end">
           <MenuIcon

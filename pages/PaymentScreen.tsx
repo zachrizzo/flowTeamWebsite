@@ -23,15 +23,13 @@ const PaymentScreen: NextPage<{}> = () => {
     const fetch = async () => {
       await GetUserActiveStatus({
         activeState: setActiveStatus,
-        route: router.push('/UserProfilePage'),
-        active: activeStatus,
       })
     }
     fetch()
   }, [])
   useEffect(() => {
     if (activeStatus == 'active') {
-      router.push('/PaymentScreen')
+      router.push('/UserProfilePage')
     }
   }, [activeStatus])
 

@@ -5,18 +5,18 @@ import Image from 'next/image'
 import Banner from '../components/Banner'
 import Header from '../components/Header'
 import SphereAnimateThreejs from '../components/SphereAnimateThreejs'
-import IphoneXsMax from '../components/IphoneXsMax'
+import IphoneXsMax from '../components/Iphones/IphoneXsMax'
 import Threecomponet from '../components/3Dcomponet'
 import Iphone from '../components/Scene'
-import Iphone13ProMax from '../components/Iphone13ProMax'
+import Iphone13ProMax from '../components/Iphones/Iphone13ProMax'
 // import Box from '../components/box'
 import RocketAsteroid from '../components/RocketAsteroid'
 import TextInput from '../components/TextInput'
-import IpadPro from '../components/Ipad'
+import IpadPro from '../components/Iphones/Ipad'
 import { ImageSection } from '../components/ImageSection'
-import Iphone13proMax2 from '../components/Iphone_max2'
+import Iphone13proMax2 from '../components/Iphones/Iphone_max2'
 import { GetUserActiveStatus } from '../firebase'
-
+import IphoneScroll from '../components/Iphones/Three_IphoneScroll'
 const Home: NextPage = () => {
   //const colorMap = useLoader(TextureLoader, '/Flow team Android 512px.png')
   const [activeStatus, setActiveStatus] = useState(null)
@@ -34,18 +34,21 @@ const Home: NextPage = () => {
 
       <Header />
       <Banner />
+      <ImageSection />
 
       <main className="flex  w-full flex-1 flex-col items-center justify-center text-center">
         {/* <ImageSection /> */}
-        <div className=" flex h-[500px] w-full ">
+        <div className=" flex h-[500px]  w-full ">
           <Threecomponet
             customBoolean={false}
             ThreeDShape={<SphereAnimateThreejs scale={2.5} />}
           />
         </div>
-        <div className=" flex h-[700px]  w-full flex-col ">
+        <div className=" flex h-[90vh]  w-full flex-col ">
           <div className=" flex h-full grid-cols-2 flex-row ">
-            <div className=" flex  w-[50%] ">
+            <div // @ts-ignore
+              className=" flex w-[100%]  "
+            >
               {/* <Threecomponet
                 customBoolean={true}
                 enableZoom={false}
@@ -70,7 +73,6 @@ const Home: NextPage = () => {
                 // ThreeDShape3={<IpadPro PositionArray={[-1.5, -3, 0]} />}
                 // bgColor={'#000000'}
               /> */}
-
               {/* <Threecomponet
             customBoolean={true}
             enableZoom={false}
@@ -84,16 +86,18 @@ const Home: NextPage = () => {
             customBoolean={false}
             ThreeDShape={<RocketAsteroid />}
           /> */}
+              <IphoneScroll />
             </div>
 
-            <div className=" flex w-[50%] ">
-              <h2>hi</h2>
-            </div>
+            {/* <div className=" flex w-[50%] items-center justify-center bg-red-900 ">
+              <h2>hiffff</h2>
+            </div> */}
           </div>
         </div>
+        <div className="h-[50vh] w-full"></div>
       </main>
 
-      <footer className="flex h-24 w-full items-center justify-center border-t">
+      <footer className="mt-10 flex h-24 w-full items-center justify-center border-t">
         <a
           className="flex items-center justify-center gap-2"
           href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"

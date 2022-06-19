@@ -5,7 +5,8 @@ import ReactDOM from 'react-dom/client'
 import { useDispatch, useSelector } from 'react-redux'
 import { Provider } from 'react-redux'
 import { store } from '../store'
-function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
+
+function MyApp({ Component, pageProps }: AppProps) {
   return (
     // <SessionProvider session={session}>
     <Provider store={store}>

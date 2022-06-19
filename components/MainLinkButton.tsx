@@ -14,7 +14,7 @@ function MainFuctionButton({
     <button
       onClick={onClick}
       className={classnames(
-        ` ${buttonWidth}  rounded-full bg-gray-50  px-9 py-4 text-center font-bold text-purple-500 shadow-md transition duration-150 hover:shadow-2xl active:scale-90 sm:invisible lg:visible`
+        ` ${buttonWidth} rounded-full bg-gray-50 py-2 px-4 text-center  text-xs font-bold text-purple-500 shadow-md transition duration-150 hover:shadow-xl active:scale-90 sm:text-base md:px-9 md:py-4 `
       )}
     >
       {buttonText}

@@ -15,6 +15,6 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "components/box.js", "firebase.jsx", "firebase.js", "components/ShereAnimateThreejs.js", "pages/_app.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "components/box.js", "firebase.jsx", "firebase.js", "components/ShereAnimateThreejs.js", "pages/_app.js", "pages/PaymentScreen.js", "components/Header.js", "components/SphereAnimateThreejs.js", "pages/UserProfilePage.js", "components/DropDownMenu.js", "pages/auth/SignUp.js", "pages/PaymentScreen.js"],
   "exclude": ["node_modules"]
 }

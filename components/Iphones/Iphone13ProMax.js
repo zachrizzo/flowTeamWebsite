@@ -9,17 +9,19 @@ title: Apple iPhone 13 Pro Max
 import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 
-export default function Iphone13ProMax({ GLTF, PositionArray, ...props }) {
+export default function Iphone13ProMax({
+  rotationArray,
+  ref,
+  GLTF,
+  PositionArray,
+  ...props
+}) {
   const group = useRef()
   const { nodes, materials } = useGLTF(GLTF)
   return (
-    <group ref={group} {...props} dispose={null}>
+    <group ref={ref} {...props} dispose={null}>
       <group args={[]} rotation={[-Math.PI / 2, 0, 0]}>
-        <group
-          position={PositionArray}
-          rotation={[Math.PI / 2, 0, 0]}
-          scale={0.05}
-        >
+        <group position={PositionArray} rotation={rotationArray} scale={0.05}>
           <group scale={100}>
             <mesh
               geometry={nodes.Body_Mic_0.geometry}

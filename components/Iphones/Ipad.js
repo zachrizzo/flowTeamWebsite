@@ -9,11 +9,11 @@ title: Apple iPad Pro
 import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 
-export default function IpadPro({ PositionArray, ...props }) {
+export default function IpadPro({ ref, PositionArray, ...props }) {
   const group = useRef()
   const { nodes, materials } = useGLTF('/ipad_clockin.gltf')
   return (
-    <group ref={group} {...props} dispose={null}>
+    <group ref={ref} {...props} dispose={null}>
       <group position={PositionArray} rotation={[-Math.PI / 2, 0, 0]}>
         <group rotation={[Math.PI / 2, 0, 0]}>
           <group rotation={[-Math.PI / 2, 0, 0]} scale={8}>

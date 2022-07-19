@@ -15,7 +15,7 @@ export default function Iphone13proMax2({ Gltf, ...props }) {
   return (
     <group ref={group} {...props} dispose={null}>
       <group
-        position={[-0.1, 3, 1]}
+        position={[-0.1, 2.5, 1]}
         rotation={[-Math.PI / 2, 0, 0]}
         scale={0.54}
       >

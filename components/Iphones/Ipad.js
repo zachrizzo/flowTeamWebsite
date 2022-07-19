@@ -133,7 +133,8 @@ export default function IpadPro({ ref, PositionArray, ...props }) {
             />
             <mesh
               geometry={nodes.iPad_Pro_2020_screen_0.geometry}
-              material={materials.screen}
+              material={'/screen_baseColor.jpeg'}
+              scale={20}
             />
             <mesh
               geometry={nodes.iPad_Pro_2020_bezel_0.geometry}

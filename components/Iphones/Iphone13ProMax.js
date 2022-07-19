@@ -35,10 +35,7 @@ export default function Iphone13ProMax({
               geometry={nodes.Body_Body_0.geometry}
               material={materials.Body}
             />
-            <mesh
-              geometry={nodes.Body_Wallpaper_0.geometry}
-              material={materials.Wallpaper}
-            />
+            <mesh geometry={nodes.Body_Wallpaper_0.geometry} />
             <mesh
               geometry={nodes.Body_Camera_Glass_0.geometry}
               material={materials.Camera_Glass}

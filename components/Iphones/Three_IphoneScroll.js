@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import { forwardRef, useState } from 'react'
+import { forwardRef, useEffect, useState } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import {
   Html,
@@ -8,6 +8,7 @@ import {
   ScrollControls,
   useScroll,
   useTexture,
+  Image,
 } from '@react-three/drei'
 import useRefs from 'react-use-refs'
 import Iphone13proMax2 from '../Iphones/Iphone_max2'
@@ -18,15 +19,15 @@ softShadows()
 const rsqw = (t, delta = 0.1, a = 1, f = 1 / (2 * Math.PI)) =>
   (a / Math.atan(1 / delta)) * Math.atan(Math.sin(2 * Math.PI * t * f) / delta)
 
-export default function IphoneScroll() {
+export default function IphoneScroll({ enabled, pages }) {
   return (
     <Canvas
       shadows
-      className=" h-[100vh]"
+      className="h-[100vh] w-[100vw]"
       dpr={[1, 2]}
       camera={{ position: [0, -3.2, 40], fov: 12 }}
     >
-      <ScrollControls pages={8}>
+      <ScrollControls enabled={enabled} pages={pages}>
         <Composition />
       </ScrollControls>
     </Canvas>
@@ -37,18 +38,38 @@ function Composition({ ...props }) {
   const scroll = useScroll()
   const { width, height } = useThree((state) => state.viewport)
   const [visableState, setVisibleState] = useState('hidden')
-  const [
-    group,
-    mbp16,
-    mbp14,
-    keyLight,
-    stripLight,
-    fillLight,
-    log,
-    left,
-    right,
-    phone3,
-  ] = useRefs()
+  const [visableState2, setVisibleState2] = useState('hidden')
+  const [visableState3, setVisibleState3] = useState('hidden')
+  const [tagLocation1, setTagLocation1] = useState('ml-[400px]')
+  const [tagLocation2, setTagLocation2] = useState('ml-[600px]')
+  useEffect(() => {
+    const responsive = () => {
+      if (width <= 11) {
+        console.log(width)
+        setTagLocation1('mt-[800px], ml-[200px]')
+        setTagLocation2('mt-[400px], ml-[200px]')
+      } else {
+        setTagLocation1('ml-[400px]')
+        setTagLocation2('ml-[600px]')
+      }
+    }
+    return () => {
+      responsive()
+    }
+  }, [width])
+
+  const group = useRefs()
+  const mbp16 = useRefs()
+  const mbp14 = useRefs()
+  const keyLight = useRefs()
+  const stripLight = useRefs()
+  const fillLight = useRefs()
+  const log = useRefs()
+  const left = useRefs()
+  const right = useRefs()
+  const phone3 = useRefs()
+  const todo = useRefs()
+
   //   const [textureRed, textureBlue] = useTexture([
   //     '/Chroma Red.jpg',
   //     '/Chroma Blue.jpg',
@@ -56,13 +77,24 @@ function Composition({ ...props }) {
   useFrame((state, delta) => {
     const r1 = scroll.range(0 / 4, 1 / 4)
     const r2 = scroll.range(1 / 7, 1 / 4)
-    const r3 = scroll.visible(0 / 4, 2 / 5)
-    const r4 = scroll.visible()
+    const r3 = scroll.visible(0 / 4, 1 / 4)
+    const r4 = scroll.visible(1 / 4, 1 / 1 / 2)
     const r5 = scroll.range(6 / 8, 1 / 4)
+    const r6 = scroll.visible(7 / 8, 1 / 4)
     if (r3) {
       setVisibleState('visible')
     } else if (!r3) {
       setVisibleState('hidden')
+    }
+    if (r4) {
+      setVisibleState2('visible')
+    } else if (!r4) {
+      setVisibleState2('hidden')
+    }
+    if (r6) {
+      setVisibleState3('visible')
+    } else if (!r6) {
+      setVisibleState3('hidden')
     }
     mbp16.current
       ? (mbp16.current.rotation.x =
@@ -72,10 +104,10 @@ function Composition({ ...props }) {
       ? (mbp14.current.rotation.x =
           Math.PI - (Math.PI / 2) * rsqw(r1) - r2 * 0.33)
       : null
-    phone3.current
-      ? (phone3.current.rotation.x =
-          Math.PI - (Math.PI / 2) * rsqw(r5) - r5 * 0.33)
-      : null
+    // phone3.current
+    //   ? (phone3.current.rotation.x =
+    //       Math.PI - (Math.PI / 2) * rsqw(r2) - r4 * 0.33)
+    //   : null
     group.current.rotation.y = THREE.MathUtils.damp(
       group.current.rotation.y,
       (-Math.PI / 1) * r5,
@@ -110,7 +142,13 @@ function Composition({ ...props }) {
     )
     left.current ? left.current.classList.toggle('show', r3) : null
     right.current ? right.current.classList.toggle('show', r3) : null
+    phone3.current ? phone3.current.classList.toggle('show', r4) : null
   })
+  // useFrame(() => {
+  //   todo.current.material.width = todo.current.material.zoom = 3 // 1 and higher
+  //   todo.current.material.grayscale = 1 // between 0 and 1
+  //   // ref.current.material.color.set(...) // mix-in color
+  // })
   return (
     <>
       <spotLight position={[0, -width * 0.7, 0]} intensity={0.5} />
@@ -120,7 +158,7 @@ function Composition({ ...props }) {
           args={[-10, 10, 10, -10, 0.5, 30]}
         />
       </directionalLight>
-      <group ref={group} position={[0, -height / 2.65, 0]} {...props}>
+      <group ref={group} position={[0, -height / 3.65, 0]} {...props}>
         <spotLight
           ref={stripLight}
           position={[width * 2.5, 0, width]}
@@ -137,15 +175,25 @@ function Composition({ ...props }) {
           distance={width * 3}
         />
         {/* <Iphone13proMax2 ref={mbp16} Gltf={'/iphone_ToDo.gltf'}> */}
-        <IpadPro ref={mbp16} PositionArray={[-1.5, -1, 0]}>
-          <Tag
-            ref={left}
-            position={[16, 5, 0]}
-            head="up to"
-            stat="13x"
-            expl={`faster\ngraphics\nperformance²`}
-          />
-        </IpadPro>
+        <IpadPro ref={mbp16} PositionArray={[-1.5, -1, 0]}></IpadPro>
+        <Image
+          scale={[4.5, 5.9, 2]}
+          position={[-1.5, 2.1, 0]}
+          ref={todo}
+          url="/screen_baseColor.jpeg"
+        />
+        <Tag
+          ref={right}
+          title="Time Tracking:"
+          Description="
+          • No more timesheets
+• Employees must be within 100 meters of the work location {'n/'}
+• The Math is done for you
+• Be sure exactly how many hours they work
+• Add as many locations as you want!"
+          visableState={visableState}
+          marginLeft={tagLocation1}
+        />
         <Iphone13ProMax
           rotationArray={[Math.PI / 2, 5.5, 0]}
           ref={mbp14}
@@ -154,38 +202,46 @@ function Composition({ ...props }) {
         >
           {/* <Iphone13proMax2 ref={mbp14} Gltf={'/iphone_ToDo.gltf'}> */}
         </Iphone13ProMax>
+        <Image
+          rotation={[0, -3.9, 0]}
+          scale={[2.2, 4.75, 6]}
+          position={[Math.PI / -13, 1.5, -2.08]}
+          ref={todo}
+          url="/ToDoScreen.png"
+        />
+        <Tag
+          ref={phone3}
+          title="To-Do:"
+          Description="Keep your team on track to achiving the"
+          visableState={visableState2}
+          marginLeft={tagLocation2}
+        />
+
         <Iphone13ProMax
           rotationArray={[Math.PI / 2, 6.9, 0]}
           ref={phone3}
           GLTF={'/Iphone13ProMaxTodoScreen.gltf'}
           PositionArray={[-2.7, 2, 1.5]}
         ></Iphone13ProMax>
-
-        <Html>
+        <Image
+          rotation={[0, 3.76, 0]}
+          scale={[2.2, 4.75, 6]}
+          position={[-2.75, 1.5, -2.09]}
+          ref={todo}
+          url="/messaging.png"
+        />
+        <Tag
+          title="Instant Messaging:"
+          Description="Keep track of who's where to make sure things are done right77"
+          visableState={visableState3}
+          marginLeft={tagLocation2}
+        />
+        {/* <Html>
           <div>
             <h1> hi</h1>
           </div>
-        </Html>
-        <Html
-          className=" z-10"
-          transform={true}
-          sprite={true}
-          ref={right}
-          center
-        >
-          <div
-            className={classNames(
-              ` z-0 w-[150px] ${visableState} mb-[300px] ml-[400px]`
-            )}
-          >
-            <h1 className=" text-left text-lg text-[#7b3af5] opacity-90">
-              Time Tracking:
-            </h1>
-            <h3 className=" text-left text-xs ">
-              Keep track of who's where to make sure things are done right!
-            </h3>
-          </div>
-        </Html>
+        </Html> */}
+
         {/* </Iphone13proMax2> */}
       </group>
     </>
@@ -200,14 +256,27 @@ source: https://sketchfab.com/3d-models/2021-macbook-pro-14-m1-pro-m1-max-f6b0b9
 title: 2021 Macbook Pro 14" (M1 Pro / M1 Max)
 */
 
-const Tag = forwardRef(({ head, stat, expl, ...props }, ref) => {
-  return (
-    <Html ref={ref} className="data" center {...props}>
-      <div>
-        <div>{head}</div>
-        <h1>{stat}</h1>
-        <h2>{expl}</h2>
-      </div>
-    </Html>
-  )
-})
+const Tag = forwardRef(
+  ({ marginLeft, visableState, title, Description, ref }) => {
+    return (
+      <Html
+        zIndexRange={[0, 0]}
+        className=" z-10  "
+        transform={true}
+        sprite={true}
+        ref={ref}
+      >
+        <div
+          className={classNames(
+            ` z-0 w-[150px] duration-500 ${visableState} mb-[300px] ${marginLeft}`
+          )}
+        >
+          <h1 className=" text-left text-lg text-[#7b3af5] opacity-90">
+            {title}
+          </h1>
+          <h3 className=" text-left text-xs ">{Description}</h3>
+        </div>
+      </Html>
+    )
+  }
+)

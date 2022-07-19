@@ -25,6 +25,7 @@ const SignIn: NextPage<{}> = () => {
       unsubscribe
     }
   }, [])
+  //
   return (
     <div className="  flex h-full w-full flex-col  justify-center">
       <Head>
@@ -39,6 +40,7 @@ const SignIn: NextPage<{}> = () => {
         <div className=" h-[110px] w-[20%] cursor-pointer justify-center">
           <Threecomponet
             customBoolean={false}
+            //@ts-ignore
             ThreeDShape={<SphereAnimateThreejs scale={2.5} />}
           />
         </div>

@@ -17,7 +17,7 @@ import { ImageSection } from '../components/ImageSection'
 import Iphone13proMax2 from '../components/Iphones/Iphone_max2'
 import { GetUserActiveStatus } from '../firebase'
 import IphoneScroll from '../components/Iphones/Three_IphoneScroll'
-import CartoonRocket from '../components/cartoon_rocket'
+// import CartoonRocket from '../components/cartoon_rocket'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 
 import {
